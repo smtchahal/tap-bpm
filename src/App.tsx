@@ -55,15 +55,11 @@ export default function App() {
   const displayBpm = bpm !== null ? Math.round(bpm) : null
 
   return (
-    <div
-      className="relative flex flex-col items-center justify-center"
-      style={{ height: '100dvh', background: '#0a0a0a', touchAction: 'manipulation' }}
-    >
+    <div className="relative flex flex-col items-center justify-center h-[100dvh] bg-[#0a0a0a] touch-manipulation">
       {/* Full-viewport tap surface */}
       <div
-        className="absolute inset-0"
+        className="absolute inset-0 touch-manipulation cursor-default"
         onPointerDown={handleTap}
-        style={{ touchAction: 'manipulation', cursor: 'default' }}
       />
 
       {/* BPM readout — sits above tap surface via pointer-events:none */}
@@ -71,55 +67,24 @@ export default function App() {
         {/* Pulse ring */}
         <div className="relative flex items-center justify-center">
           {pulsing && (
-            <div
-              className="ring-pulse absolute rounded-full"
-              style={{
-                width: 'clamp(160px, 40vw, 320px)',
-                height: 'clamp(160px, 40vw, 320px)',
-                border: '2px solid rgba(139,92,246,0.5)',
-              }}
-            />
+            <div className="ring-pulse absolute rounded-full w-[clamp(160px,40vw,320px)] h-[clamp(160px,40vw,320px)] border-2 border-violet-500/50" />
           )}
 
           {/* BPM number */}
           <div
-            className={pulsing ? 'beat-pulse' : ''}
-            style={{
-              fontSize: 'clamp(80px, 22vw, 180px)',
-              fontWeight: 800,
-              letterSpacing: '-0.04em',
-              lineHeight: 1,
-              color: '#ffffff',
-              fontVariantNumeric: 'tabular-nums',
-              minWidth: 'clamp(160px, 40vw, 320px)',
-              textAlign: 'center',
-            }}
+            className={`${pulsing ? 'beat-pulse' : ''} text-[clamp(80px,22vw,180px)] font-extrabold tracking-[-0.04em] leading-none text-white tabular-nums min-w-[clamp(160px,40vw,320px)] text-center`}
           >
             {displayBpm !== null ? displayBpm : 0}
           </div>
         </div>
 
         {/* BPM label */}
-        <div
-          style={{
-            fontSize: 'clamp(11px, 3vw, 15px)',
-            fontWeight: 600,
-            letterSpacing: '0.2em',
-            textTransform: 'uppercase',
-            color: 'rgba(255,255,255,0.25)',
-          }}
-        >
+        <div className="text-[clamp(11px,3vw,15px)] font-semibold tracking-[0.2em] uppercase text-white/25">
           BPM
         </div>
 
         {/* Tap count / hint */}
-        <div
-          style={{
-            fontSize: 'clamp(13px, 3.5vw, 16px)',
-            color: 'rgba(255,255,255,0.35)',
-            marginTop: '4px',
-          }}
-        >
+        <div className="text-[clamp(13px,3.5vw,16px)] text-white/35 mt-1">
           {tapCount < 2 ? 'Tap anywhere to start' : `${tapCount} taps`}
         </div>
       </div>
@@ -128,34 +93,13 @@ export default function App() {
       <button
         type="button"
         onClick={() => setPanelOpen(true)}
-        className="absolute bottom-6 right-6 pointer-events-auto transition-opacity active:opacity-60"
-        style={{
-          fontSize: '13px',
-          fontWeight: 500,
-          color: 'rgba(255,255,255,0.35)',
-          background: 'rgba(255,255,255,0.06)',
-          border: '1px solid rgba(255,255,255,0.1)',
-          borderRadius: '10px',
-          padding: '8px 14px',
-          letterSpacing: '0.02em',
-        }}
+        className="absolute bottom-6 right-6 pointer-events-auto transition-opacity active:opacity-60 text-[13px] font-medium text-white/35 bg-white/[0.06] border border-white/10 rounded-[10px] px-3.5 py-2 tracking-[0.02em]"
       >
         More
       </button>
 
       {/* Accent dot — purely decorative */}
-      <div
-        className="absolute pointer-events-none"
-        style={{
-          width: 6,
-          height: 6,
-          borderRadius: '50%',
-          background: 'rgba(139,92,246,0.6)',
-          bottom: '6px',
-          left: '50%',
-          transform: 'translateX(-50%)',
-        }}
-      />
+      <div className="absolute pointer-events-none size-1.5 rounded-full bg-violet-500/60 bottom-[6px] left-1/2 -translate-x-1/2" />
 
       {/* More panel overlay */}
       {panelOpen && (

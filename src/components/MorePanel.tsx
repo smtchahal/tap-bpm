@@ -31,27 +31,18 @@ export function MorePanel({ onClose, onReset }: Props) {
       role="dialog"
       aria-modal="true"
       aria-label="More options"
-      className="fixed inset-0 z-50 flex items-end justify-center"
+      className="fixed inset-0 z-50 flex items-end justify-center bg-black/70 backdrop-blur-sm"
       onPointerDown={handleBackdropPointer}
       onKeyDown={handleKeyDown}
       tabIndex={-1}
-      style={{ background: 'rgba(0,0,0,0.7)', backdropFilter: 'blur(4px)' }}
     >
       <div
-        className="w-full max-w-md rounded-t-2xl"
-        style={{
-          background: '#141414',
-          border: '1px solid rgba(255,255,255,0.08)',
-          borderBottom: 'none',
-          maxHeight: '85dvh',
-          overflowY: 'auto',
-          overscrollBehavior: 'contain',
-        }}
+        className="w-full max-w-md rounded-t-2xl bg-[#141414] border border-white/[0.08] border-b-0 max-h-[85dvh] overflow-y-auto overscroll-contain"
         onPointerDown={(e) => e.stopPropagation()}
       >
         {/* Handle bar */}
         <div className="flex justify-center pt-3 pb-1">
-          <div className="w-10 h-1 rounded-full" style={{ background: 'rgba(255,255,255,0.2)' }} />
+          <div className="w-10 h-1 rounded-full bg-white/20" />
         </div>
 
         <div className="px-6 pb-8 pt-2">
@@ -61,8 +52,7 @@ export function MorePanel({ onClose, onReset }: Props) {
             <button
               type="button"
               onClick={onClose}
-              className="text-sm px-3 py-1 rounded-lg transition-colors"
-              style={{ color: 'rgba(255,255,255,0.5)', background: 'rgba(255,255,255,0.06)' }}
+              className="text-sm px-3 py-1 rounded-lg transition-colors text-white/50 bg-white/[0.06]"
             >
               Close
             </button>
@@ -75,55 +65,34 @@ export function MorePanel({ onClose, onReset }: Props) {
               onReset()
               onClose()
             }}
-            className="w-full py-3 rounded-xl font-medium text-sm mb-6 transition-opacity active:opacity-70"
-            style={{
-              background: 'rgba(239,68,68,0.15)',
-              color: 'rgb(252,165,165)',
-              border: '1px solid rgba(239,68,68,0.25)',
-            }}
+            className="w-full py-3 rounded-xl font-medium text-sm mb-6 transition-opacity active:opacity-70 bg-red-500/15 text-red-300 border border-red-500/25"
           >
             Reset measurement
           </button>
 
           {/* How it works */}
-          <div className="mb-6 text-sm leading-relaxed" style={{ color: 'rgba(255,255,255,0.45)' }}>
+          <div className="mb-6 text-sm leading-relaxed text-white/45">
             Tap a steady beat — the app averages all your taps for accuracy. After 8+ taps a long
             pause resets the meter. Skipping an occasional beat won't reset it.
           </div>
 
           {/* Genre reference */}
-          <h3
-            className="text-xs font-semibold uppercase tracking-widest mb-3"
-            style={{ color: 'rgba(255,255,255,0.3)' }}
-          >
+          <h3 className="text-xs font-semibold uppercase tracking-widest mb-3 text-white/30">
             Genre BPM reference
           </h3>
-          <div
-            className="rounded-xl overflow-hidden"
-            style={{ border: '1px solid rgba(255,255,255,0.07)' }}
-          >
-            {GENRES.map(({ genre, range }, i) => (
+          <div className="rounded-xl overflow-hidden border border-white/[0.07] divide-y divide-white/[0.05]">
+            {GENRES.map(({ genre, range }) => (
               <div
                 key={genre}
-                className="flex items-center justify-between px-4 py-2.5 text-sm"
-                style={{
-                  borderTop: i > 0 ? '1px solid rgba(255,255,255,0.05)' : undefined,
-                  color: 'rgba(255,255,255,0.7)',
-                }}
+                className="flex items-center justify-between px-4 py-2.5 text-sm text-white/70"
               >
                 <span>{genre}</span>
-                <span
-                  style={{ color: 'rgba(255,255,255,0.35)', fontVariantNumeric: 'tabular-nums' }}
-                >
-                  {range}
-                </span>
+                <span className="text-white/35 tabular-nums">{range}</span>
               </div>
             ))}
           </div>
 
-          <p className="text-xs mt-3" style={{ color: 'rgba(255,255,255,0.2)' }}>
-            Ranges are approximate common tempos.
-          </p>
+          <p className="text-xs mt-3 text-white/20">Ranges are approximate common tempos.</p>
         </div>
       </div>
     </div>

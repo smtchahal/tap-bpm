@@ -20,6 +20,9 @@
         "recommended": true,
         "useExhaustiveDependencies": "error",
         "useHookAtTopLevel": "error"
+      },
+      "nursery": {
+        "noInlineStyles": "error"
       }
     }
   },
