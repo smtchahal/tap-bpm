@@ -2,6 +2,8 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import { MorePanel } from './components/MorePanel'
 import { useBpm } from './useBpm'
 
+const hasKeyboard = window.matchMedia('(pointer: fine)').matches
+
 export default function App() {
   const { bpm, tapCount, registerTap, reset } = useBpm()
   const [panelOpen, setPanelOpen] = useState(false)
@@ -85,7 +87,11 @@ export default function App() {
 
         {/* Tap count / hint */}
         <div className="text-[clamp(13px,3.5vw,16px)] text-white/35 mt-1">
-          {tapCount < 2 ? 'Tap anywhere to start' : `${tapCount} taps`}
+          {tapCount < 2
+            ? hasKeyboard
+              ? 'Press any key or tap anywhere to start'
+              : 'Tap anywhere to start'
+            : `${tapCount} taps`}
         </div>
       </div>
 
@@ -95,11 +101,8 @@ export default function App() {
         onClick={() => setPanelOpen(true)}
         className="absolute bottom-6 right-6 pointer-events-auto transition-opacity active:opacity-60 text-[13px] font-medium text-white/35 bg-white/[0.06] border border-white/10 rounded-[10px] px-3.5 py-2 tracking-[0.02em]"
       >
-        More
+        Reset and more...
       </button>
-
-      {/* Accent dot — purely decorative */}
-      <div className="absolute pointer-events-none size-1.5 rounded-full bg-violet-500/60 bottom-[6px] left-1/2 -translate-x-1/2" />
 
       {/* More panel overlay */}
       {panelOpen && (
