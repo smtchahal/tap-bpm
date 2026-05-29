@@ -89,13 +89,13 @@ export default function App() {
               fontWeight: 800,
               letterSpacing: '-0.04em',
               lineHeight: 1,
-              color: displayBpm !== null ? '#ffffff' : 'rgba(255,255,255,0.12)',
+              color: '#ffffff',
               fontVariantNumeric: 'tabular-nums',
               minWidth: 'clamp(160px, 40vw, 320px)',
               textAlign: 'center',
             }}
           >
-            {displayBpm !== null ? displayBpm : '—'}
+            {displayBpm !== null ? displayBpm : 0}
           </div>
         </div>
 
