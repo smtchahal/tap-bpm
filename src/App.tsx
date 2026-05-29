@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
+import { GearIcon } from './components/GearIcon'
 import { MorePanel } from './components/MorePanel'
 import { useBpm } from './useBpm'
 
@@ -95,13 +96,15 @@ export default function App() {
         </div>
       </div>
 
-      {/* More button — fixed corner, pointer-events re-enabled */}
+      {/* Settings button — fixed corner, pointer-events re-enabled */}
       <button
         type="button"
+        aria-label="Settings"
         onClick={() => setPanelOpen(true)}
-        className="absolute bottom-6 right-6 pointer-events-auto transition-opacity active:opacity-60 text-[13px] font-medium text-white/35 bg-white/[0.06] border border-white/10 rounded-[10px] px-3.5 py-2 tracking-[0.02em]"
+        className="absolute bottom-6 right-6 pointer-events-auto transition-opacity active:opacity-60 text-[13px] font-medium text-white/35 bg-white/[0.06] border border-white/10 rounded-[10px] px-3 py-2 sm:px-3.5 tracking-[0.02em] flex items-center gap-1.5"
       >
-        Reset and more...
+        <GearIcon size={14} />
+        <span className="hidden sm:inline">Settings</span>
       </button>
 
       {/* More panel overlay */}

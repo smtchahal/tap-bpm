@@ -12,6 +12,11 @@ function setup(overrides?: { onClose?: () => void; onReset?: () => void }) {
 }
 
 describe('MorePanel', () => {
+  it('renders Settings heading', () => {
+    setup()
+    expect(screen.getByRole('heading', { name: /settings/i })).toBeInTheDocument()
+  })
+
   it('renders genre reference table', () => {
     setup()
     expect(screen.getByText('Hip-Hop')).toBeInTheDocument()
