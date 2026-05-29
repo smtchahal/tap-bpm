@@ -1,6 +1,6 @@
-import { useState, useCallback, useEffect, useRef } from 'react'
-import { useBpm } from './useBpm'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { MorePanel } from './components/MorePanel'
+import { useBpm } from './useBpm'
 
 export default function App() {
   const { bpm, tapCount, registerTap, reset } = useBpm()
@@ -8,7 +8,7 @@ export default function App() {
   const [pulsing, setPulsing] = useState(false)
   const pulseTimeout = useRef<ReturnType<typeof setTimeout> | null>(null)
 
-  const triggerPulse = () => {
+  const triggerPulse = useCallback(() => {
     setPulsing(false)
     // Force reflow so re-adding class restarts animation
     requestAnimationFrame(() => {
@@ -16,7 +16,7 @@ export default function App() {
       if (pulseTimeout.current) clearTimeout(pulseTimeout.current)
       pulseTimeout.current = setTimeout(() => setPulsing(false), 200)
     })
-  }
+  }, [])
 
   const handleTap = useCallback(
     (e: React.PointerEvent) => {
@@ -25,7 +25,7 @@ export default function App() {
       registerTap()
       triggerPulse()
     },
-    [panelOpen, registerTap],
+    [panelOpen, registerTap, triggerPulse],
   )
 
   // Keyboard support
@@ -41,7 +41,7 @@ export default function App() {
     }
     window.addEventListener('keydown', onKey)
     return () => window.removeEventListener('keydown', onKey)
-  }, [panelOpen, registerTap])
+  }, [panelOpen, registerTap, triggerPulse])
 
   // Esc to close panel
   useEffect(() => {
@@ -120,14 +120,13 @@ export default function App() {
             marginTop: '4px',
           }}
         >
-          {tapCount < 2
-            ? 'Tap anywhere to start'
-            : `${tapCount} taps`}
+          {tapCount < 2 ? 'Tap anywhere to start' : `${tapCount} taps`}
         </div>
       </div>
 
       {/* More button — fixed corner, pointer-events re-enabled */}
       <button
+        type="button"
         onClick={() => setPanelOpen(true)}
         className="absolute bottom-6 right-6 pointer-events-auto transition-opacity active:opacity-60"
         style={{
@@ -161,10 +160,7 @@ export default function App() {
       {/* More panel overlay */}
       {panelOpen && (
         <div data-panel className="pointer-events-auto">
-          <MorePanel
-            onClose={() => setPanelOpen(false)}
-            onReset={reset}
-          />
+          <MorePanel onClose={() => setPanelOpen(false)} onReset={reset} />
         </div>
       )}
     </div>

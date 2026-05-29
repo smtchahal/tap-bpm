@@ -1,9 +1,9 @@
-import { useRef, useState, useCallback } from 'react'
+import { useCallback, useRef, useState } from 'react'
 
-const MIN_INTERVAL = 100      // ms — debounce / double-fire guard (~600 BPM ceiling)
+const MIN_INTERVAL = 100 // ms — debounce / double-fire guard (~600 BPM ceiling)
 const ABSOLUTE_TIMEOUT = 3000 // ms — always restart after a 3 s silence
-const CONFIDENT_TAPS = 8      // taps needed before deviation-based reset kicks in
-const DEVIATION_FACTOR = 2.5  // gap must be > avg * this to trigger a confident reset
+const CONFIDENT_TAPS = 8 // taps needed before deviation-based reset kicks in
+const DEVIATION_FACTOR = 2.5 // gap must be > avg * this to trigger a confident reset
 
 export interface BpmState {
   bpm: number | null
@@ -16,7 +16,7 @@ export function useBpm(): BpmState {
   const taps = useRef<number[]>([])
   // Small render-trigger counter; bumped whenever displayed values change
   const [, setRenderKey] = useState(0)
-  const bump = () => setRenderKey((k) => k + 1)
+  const bump = useCallback(() => setRenderKey((k) => k + 1), [])
 
   const deriveBpm = (): number | null => {
     const t = taps.current
@@ -56,12 +56,12 @@ export function useBpm(): BpmState {
     // Accumulate
     taps.current = [...t, now]
     bump()
-  }, [])
+  }, [bump])
 
   const reset = useCallback(() => {
     taps.current = []
     bump()
-  }, [])
+  }, [bump])
 
   return {
     bpm: deriveBpm(),

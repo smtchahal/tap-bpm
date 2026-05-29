@@ -28,6 +28,9 @@ export function MorePanel({ onClose, onReset }: Props) {
 
   return (
     <div
+      role="dialog"
+      aria-modal="true"
+      aria-label="More options"
       className="fixed inset-0 z-50 flex items-end justify-center"
       onPointerDown={handleBackdropPointer}
       onKeyDown={handleKeyDown}
@@ -56,6 +59,7 @@ export function MorePanel({ onClose, onReset }: Props) {
           <div className="flex items-center justify-between mb-6">
             <h2 className="text-white font-semibold text-lg tracking-tight">More</h2>
             <button
+              type="button"
               onClick={onClose}
               className="text-sm px-3 py-1 rounded-lg transition-colors"
               style={{ color: 'rgba(255,255,255,0.5)', background: 'rgba(255,255,255,0.06)' }}
@@ -66,23 +70,38 @@ export function MorePanel({ onClose, onReset }: Props) {
 
           {/* Reset */}
           <button
-            onClick={() => { onReset(); onClose() }}
+            type="button"
+            onClick={() => {
+              onReset()
+              onClose()
+            }}
             className="w-full py-3 rounded-xl font-medium text-sm mb-6 transition-opacity active:opacity-70"
-            style={{ background: 'rgba(239,68,68,0.15)', color: 'rgb(252,165,165)', border: '1px solid rgba(239,68,68,0.25)' }}
+            style={{
+              background: 'rgba(239,68,68,0.15)',
+              color: 'rgb(252,165,165)',
+              border: '1px solid rgba(239,68,68,0.25)',
+            }}
           >
             Reset measurement
           </button>
 
           {/* How it works */}
           <div className="mb-6 text-sm leading-relaxed" style={{ color: 'rgba(255,255,255,0.45)' }}>
-            Tap a steady beat — the app averages all your taps for accuracy. After 8+ taps a long pause resets the meter. Skipping an occasional beat won't reset it.
+            Tap a steady beat — the app averages all your taps for accuracy. After 8+ taps a long
+            pause resets the meter. Skipping an occasional beat won't reset it.
           </div>
 
           {/* Genre reference */}
-          <h3 className="text-xs font-semibold uppercase tracking-widest mb-3" style={{ color: 'rgba(255,255,255,0.3)' }}>
+          <h3
+            className="text-xs font-semibold uppercase tracking-widest mb-3"
+            style={{ color: 'rgba(255,255,255,0.3)' }}
+          >
             Genre BPM reference
           </h3>
-          <div className="rounded-xl overflow-hidden" style={{ border: '1px solid rgba(255,255,255,0.07)' }}>
+          <div
+            className="rounded-xl overflow-hidden"
+            style={{ border: '1px solid rgba(255,255,255,0.07)' }}
+          >
             {GENRES.map(({ genre, range }, i) => (
               <div
                 key={genre}
@@ -93,7 +112,11 @@ export function MorePanel({ onClose, onReset }: Props) {
                 }}
               >
                 <span>{genre}</span>
-                <span style={{ color: 'rgba(255,255,255,0.35)', fontVariantNumeric: 'tabular-nums' }}>{range}</span>
+                <span
+                  style={{ color: 'rgba(255,255,255,0.35)', fontVariantNumeric: 'tabular-nums' }}
+                >
+                  {range}
+                </span>
               </div>
             ))}
           </div>
