@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
-import { GearIcon } from './components/GearIcon'
-import { MorePanel } from './components/MorePanel'
+import { InfoIcon } from './components/InfoIcon'
+import { InfoPanel } from './components/InfoPanel'
 import { useBpm } from './useBpm'
 
 const hasKeyboard = window.matchMedia('(pointer: fine)').matches
@@ -96,21 +96,21 @@ export default function App() {
         </div>
       </div>
 
-      {/* Settings button — fixed corner, pointer-events re-enabled */}
+      {/* Info button — fixed corner, pointer-events re-enabled */}
       <button
         type="button"
-        aria-label="Settings"
+        aria-label="Info"
         onClick={() => setPanelOpen(true)}
-        className="absolute bottom-6 right-6 pointer-events-auto transition-opacity active:opacity-60 text-[13px] font-medium text-white/35 bg-white/[0.06] border border-white/10 rounded-[10px] px-3 py-2 sm:px-3.5 tracking-[0.02em] flex items-center gap-1.5"
+        className="absolute bottom-6 right-6 pointer-events-auto transition-opacity active:opacity-60 text-[13px] font-medium text-white/35 bg-white/[0.06] border border-white/10 rounded-full p-2 sm:px-3.5 sm:py-2 tracking-[0.02em] flex items-center gap-1.5"
       >
-        <GearIcon size={14} />
-        <span className="hidden sm:inline">Settings</span>
+        <InfoIcon size={14} />
+        <span className="hidden sm:inline">Info</span>
       </button>
 
       {/* More panel overlay */}
       {panelOpen && (
         <div data-panel className="pointer-events-auto">
-          <MorePanel onClose={() => setPanelOpen(false)} onReset={reset} />
+          <InfoPanel onClose={() => setPanelOpen(false)} onReset={reset} />
         </div>
       )}
     </div>

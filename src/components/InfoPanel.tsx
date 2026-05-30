@@ -33,7 +33,7 @@ function sheetStyle(phase: Phase, dragY: number): { transform: string; transitio
   return { transform: 'translateY(0)', transition: spring }
 }
 
-export function MorePanel({ onClose, onReset }: Props) {
+export function InfoPanel({ onClose, onReset }: Props) {
   const [phase, setPhase] = useState<Phase>(isTouch ? 'initial' : 'open')
   const [dragY, setDragY] = useState(0)
   const dragStartY = useRef(0)
@@ -99,7 +99,7 @@ export function MorePanel({ onClose, onReset }: Props) {
     <div
       role="dialog"
       aria-modal="true"
-      aria-label="Settings"
+      aria-label="Info"
       className={`fixed inset-0 z-50 flex justify-center bg-black/70 backdrop-blur-sm ${isTouch ? 'items-end' : 'items-center'}`}
       onPointerDown={handleBackdropPointer}
       onKeyDown={handleKeyDown}
@@ -127,7 +127,7 @@ export function MorePanel({ onClose, onReset }: Props) {
         <div className={`px-6 pb-8 ${isTouch ? 'pt-2' : 'pt-6'}`}>
           {/* Header */}
           <div className="flex items-center justify-between mb-6">
-            <h2 className="text-white font-semibold text-lg tracking-tight">Settings</h2>
+            <h2 className="text-white font-semibold text-lg tracking-tight">Info</h2>
             <button
               type="button"
               onClick={triggerClose}
@@ -144,9 +144,9 @@ export function MorePanel({ onClose, onReset }: Props) {
               onReset()
               triggerClose()
             }}
-            className="w-full py-3 rounded-xl font-medium text-sm mb-6 transition-opacity active:opacity-70 bg-red-500/15 text-red-300 border border-red-500/25"
+            className="w-full py-3 rounded-xl font-semibold text-sm mb-6 transition-opacity active:opacity-70 bg-red-700 text-white"
           >
-            Reset measurement
+            Reset BPM
           </button>
 
           {/* How it works */}

@@ -1,20 +1,20 @@
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { describe, expect, it, vi } from 'vitest'
-import { MorePanel } from './MorePanel'
+import { InfoPanel } from './InfoPanel'
 
 function setup(overrides?: { onClose?: () => void; onReset?: () => void }) {
   const onClose = overrides?.onClose ?? vi.fn()
   const onReset = overrides?.onReset ?? vi.fn()
   const user = userEvent.setup()
-  render(<MorePanel onClose={onClose} onReset={onReset} />)
+  render(<InfoPanel onClose={onClose} onReset={onReset} />)
   return { onClose, onReset, user }
 }
 
-describe('MorePanel', () => {
-  it('renders Settings heading', () => {
+describe('InfoPanel', () => {
+  it('renders Info heading', () => {
     setup()
-    expect(screen.getByRole('heading', { name: /settings/i })).toBeInTheDocument()
+    expect(screen.getByRole('heading', { name: /info/i })).toBeInTheDocument()
   })
 
   it('renders genre reference table', () => {
