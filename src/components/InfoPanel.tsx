@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
+import type { Settings } from '../useSettings'
 
 const isTouch =
   typeof window.matchMedia === 'function' && window.matchMedia('(pointer: coarse)').matches
@@ -6,6 +7,8 @@ const isTouch =
 interface Props {
   onClose: () => void
   onReset: () => void
+  settings: Settings
+  setSetting: <K extends keyof Settings>(key: K, value: Settings[K]) => void
 }
 
 const GENRES = [
@@ -33,7 +36,7 @@ function sheetStyle(phase: Phase, dragY: number): { transform: string; transitio
   return { transform: 'translateY(0)', transition: spring }
 }
 
-export function InfoPanel({ onClose, onReset }: Props) {
+export function InfoPanel({ onClose, onReset, settings, setSetting }: Props) {
   const [phase, setPhase] = useState<Phase>(isTouch ? 'initial' : 'open')
   const [dragY, setDragY] = useState(0)
   const dragStartY = useRef(0)
@@ -153,6 +156,28 @@ export function InfoPanel({ onClose, onReset }: Props) {
           <div className="mb-6 text-sm leading-relaxed text-white/45">
             Tap a steady beat — the app averages all your taps for accuracy. After 8+ taps a long
             pause resets the meter. Skipping an occasional beat won't reset it.
+          </div>
+
+          {/* Display options */}
+          <h3 className="text-xs font-semibold uppercase tracking-widest mb-3 text-white/30">
+            Display
+          </h3>
+          <div className="rounded-xl overflow-hidden border border-white/[0.07] divide-y divide-white/[0.05] mb-6">
+            <div className="flex items-center justify-between px-4 py-3">
+              <span className="text-sm text-white/70">Visualizer</span>
+              <button
+                type="button"
+                role="switch"
+                aria-checked={settings.showVisualizer}
+                aria-label="Toggle visualizer"
+                onClick={() => setSetting('showVisualizer', !settings.showVisualizer)}
+                className={`relative inline-flex h-5 w-9 shrink-0 items-center rounded-full transition-colors ${settings.showVisualizer ? 'bg-violet-500' : 'bg-white/20'}`}
+              >
+                <span
+                  className={`inline-block h-3.5 w-3.5 rounded-full bg-white transition-transform ${settings.showVisualizer ? 'translate-x-5' : 'translate-x-0.5'}`}
+                />
+              </button>
+            </div>
           </div>
 
           {/* Genre reference */}

@@ -1,12 +1,15 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { InfoIcon } from './components/InfoIcon'
 import { InfoPanel } from './components/InfoPanel'
+import { WaveformVisualizer } from './components/WaveformVisualizer'
 import { useBpm } from './useBpm'
+import { useSettings } from './useSettings'
 
 const hasKeyboard = window.matchMedia('(pointer: fine)').matches
 
 export default function App() {
   const { bpm, tapCount, registerTap, reset } = useBpm()
+  const { settings, setSetting } = useSettings()
   const [panelOpen, setPanelOpen] = useState(false)
   const [pulsing, setPulsing] = useState(false)
   const pulseTimeout = useRef<ReturnType<typeof setTimeout> | null>(null)
@@ -96,6 +99,9 @@ export default function App() {
         </div>
       </div>
 
+      {/* Bar spectrum visualizer — spikes on tap, decays to flat */}
+      {settings.showVisualizer && <WaveformVisualizer tapCount={tapCount} />}
+
       {/* Info button — fixed corner, pointer-events re-enabled */}
       <button
         type="button"
@@ -110,7 +116,12 @@ export default function App() {
       {/* More panel overlay */}
       {panelOpen && (
         <div data-panel className="pointer-events-auto">
-          <InfoPanel onClose={() => setPanelOpen(false)} onReset={reset} />
+          <InfoPanel
+            onClose={() => setPanelOpen(false)}
+            onReset={reset}
+            settings={settings}
+            setSetting={setSetting}
+          />
         </div>
       )}
     </div>
