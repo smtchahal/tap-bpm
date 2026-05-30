@@ -55,7 +55,7 @@ describe('useBpm', () => {
     expect(result.current.tapCount).toBe(1)
   })
 
-  it('restarts after ABSOLUTE_TIMEOUT (>6 s silence)', () => {
+  it('restarts after ABSOLUTE_TIMEOUT (>3 s silence)', () => {
     const { result } = renderHook(() => useBpm())
     act(() => {
       result.current.registerTap()
@@ -65,7 +65,7 @@ describe('useBpm', () => {
     expect(result.current.tapCount).toBe(2)
 
     act(() => {
-      advance(6001)
+      advance(3001)
       result.current.registerTap()
     })
     // Restarted — count is back to 1

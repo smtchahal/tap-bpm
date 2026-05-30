@@ -1,7 +1,7 @@
 import { useCallback, useRef, useState } from 'react'
 
 const MIN_INTERVAL = 100 // ms — debounce / double-fire guard (~600 BPM ceiling)
-const ABSOLUTE_TIMEOUT = 6000 // ms — always restart after a 6 s silence
+const ABSOLUTE_TIMEOUT = 3000 // ms — always restart after a 3 s silence
 const CONFIDENT_TAPS = 8 // taps needed before deviation-based reset kicks in
 const DEVIATION_FACTOR = 2.5 // gap must be > avg * this to trigger a confident reset
 
