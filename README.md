@@ -1,5 +1,9 @@
 # Tap 2 BPM
 
+[![CI](https://github.com/smtchahal/tap-bpm/actions/workflows/ci.yml/badge.svg)](https://github.com/smtchahal/tap-bpm/actions/workflows/ci.yml)
+
+**Live at [tap2bpm.com](https://tap2bpm.com/)**
+
 Tap anywhere (or press any key) to measure BPM. A minimal, installable PWA built with React, TypeScript, Vite and Tailwind CSS.
 
 ## Features
