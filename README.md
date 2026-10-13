@@ -1,6 +1,6 @@
 # Tap 2 BPM
 
-[![CI](https://github.com/smtchahal/tap-bpm/actions/workflows/ci.yml/badge.svg)](https://github.com/smtchahal/tap-bpm/actions/workflows/ci.yml)
+[![CI](https://github.com/smtchahal/tap-bpm/actions/workflows/ci-cd.yml/badge.svg)](https://github.com/smtchahal/tap-bpm/actions/workflows/ci-cd.yml)
 
 **Live at [tap2bpm.com](https://tap2bpm.com/)**
 
@@ -57,4 +57,4 @@ See [CLAUDE.md](CLAUDE.md) for project conventions: use pnpm, Tailwind utility c
 
 ## Deployment
 
-Pushes to `master` run CI; on success the `Deploy` workflow builds the app and publishes it to Cloudflare Pages.
+A single `CI/CD` workflow (`.github/workflows/ci-cd.yml`) runs on pull requests and on pushes to `master`. Lint, tests and build run in parallel with the security checks (dependency audit and gitleaks). On `master`, once both pass, the built artifact is deployed to Cloudflare Pages.
