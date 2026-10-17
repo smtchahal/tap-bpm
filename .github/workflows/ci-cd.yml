@@ -18,10 +18,9 @@ concurrency:
 jobs:
   ci:
     name: Lint, test, security & build
-    uses: smtchahal/actions-templates/.github/workflows/node-ci.yml@97572676f9c081072f01354b704c4e27c1818bd4 # v1.3.0
+    uses: smtchahal/actions-templates/.github/workflows/node-ci.yml@879d1a371f639385c25dc5c134350f2748d22e58 # v2.0.0
     with:
       node-version: "24"
-      pnpm-version: "10"
       fetch-depth: 0 # gitleaks scans history
       gitleaks: true
       audit: true
@@ -45,9 +44,9 @@ jobs:
 
   deploy:
     name: Deploy to Cloudflare Pages
-    needs: ci
+    needs: validate
     if: github.event_name == 'push' && github.ref == 'refs/heads/master'
-    uses: smtchahal/actions-templates/.github/workflows/cloudflare-deploy.yml@97572676f9c081072f01354b704c4e27c1818bd4 # v1.3.0
+    uses: smtchahal/actions-templates/.github/workflows/cloudflare-deploy.yml@879d1a371f639385c25dc5c134350f2748d22e58 # v2.0.0
     with:
       project-name: tap-bpm
       artifact-name: dist
