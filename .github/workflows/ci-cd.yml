@@ -1,29 +1,35 @@
 name: CI/CD
 
+# One run per change: PRs run on `pull_request`, and only merges to master run on `push`.
 on:
   push:
     branches: [master]
   pull_request:
+    branches: [master]
+
+permissions:
+  contents: read
+  pull-requests: read # gitleaks lists the PR's commits
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   ci:
-    name: Lint, test, typecheck & build
-    permissions:
-      contents: read
-      # gitleaks reads PR commits through the API
-      pull-requests: read
-    uses: smtchahal/actions-templates/.github/workflows/node-ci.yml@4e58cec172882f256066b093374f5da0c321c316 # v1.2.0
+    name: Lint, test, security & build
+    uses: smtchahal/actions-templates/.github/workflows/node-ci.yml@97572676f9c081072f01354b704c4e27c1818bd4 # v1.3.0
     with:
       node-version: "24"
       pnpm-version: "10"
-      fetch-depth: 0
+      fetch-depth: 0 # gitleaks scans history
       gitleaks: true
       audit: true
+      # `pnpm build` runs `tsc -b` first, so it is also the type check.
       commands: |
         pnpm ci:lint
         pnpm knip
         pnpm test:run
-        pnpm typecheck
         pnpm build
       artifact-name: dist
       artifact-path: dist
@@ -40,10 +46,8 @@ jobs:
   deploy:
     name: Deploy to Cloudflare Pages
     needs: ci
-    if: github.ref == 'refs/heads/master' && github.event_name == 'push'
-    permissions:
-      contents: read
-    uses: smtchahal/actions-templates/.github/workflows/cloudflare-deploy.yml@4e58cec172882f256066b093374f5da0c321c316 # v1.2.0
+    if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+    uses: smtchahal/actions-templates/.github/workflows/cloudflare-deploy.yml@97572676f9c081072f01354b704c4e27c1818bd4 # v1.3.0
     with:
       project-name: tap-bpm
       artifact-name: dist
