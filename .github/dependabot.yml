@@ -1,18 +1,8 @@
 version: 2
 
-# actions-templates is private; Dependabot needs this token to read it.
-registries:
-  actions-templates:
-    type: git
-    url: https://github.com
-    username: x-access-token
-    password: ${{secrets.ACTIONS_TEMPLATES_TOKEN}}
-
 updates:
   - package-ecosystem: github-actions
     directory: /
-    registries:
-      - actions-templates
     schedule:
       interval: weekly
     cooldown:
