@@ -11,8 +11,8 @@ export default defineConfig({
       registerType: 'autoUpdate',
       injectRegister: 'auto',
       manifest: {
-        name: 'Tap 2 BPM',
-        short_name: 'Tap 2 BPM',
+        name: 'Tap to BPM',
+        short_name: 'Tap to BPM',
         description: 'Tap anywhere to measure BPM',
         display: 'standalone',
         orientation: 'portrait',

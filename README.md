@@ -1,4 +1,4 @@
-# Tap 2 BPM
+# Tap to BPM
 
 [![CI](https://github.com/smtchahal/tap-bpm/actions/workflows/ci-cd.yml/badge.svg)](https://github.com/smtchahal/tap-bpm/actions/workflows/ci-cd.yml)
 
