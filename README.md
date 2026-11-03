@@ -58,3 +58,7 @@ See [CLAUDE.md](CLAUDE.md) for project conventions: use pnpm, Tailwind utility c
 ## Deployment
 
 A single `CI/CD` workflow (`.github/workflows/ci-cd.yml`) runs on pull requests and on pushes to `master`. Lint, tests and build run in parallel with the security checks (dependency audit and gitleaks). On `master`, once both pass, the built artifact is deployed to Cloudflare Pages.
+
+## License
+
+[MIT](LICENSE)
